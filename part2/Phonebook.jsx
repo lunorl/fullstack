@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
 const Mapper = ({persons, newFilter}) => {
   return ( 
     <div>
@@ -30,15 +31,17 @@ const Form = ({AddNew, newName, handleChange, newNum, handleoChange}) => {
           </div>
         </form>
 }
-const App = () => {
-  const [persons, setPersons] = useState([
-    { name: 'Arto Hellas' ,
-      number: '040-123456'
-    }
-  ]) 
+const App = () => { 
+  const [persons, setPersons] = useState([])
   const [newName, setNewName] = useState('')
   const [newNum, setNewNum] = useState('')
   const [newFilter, setNewFilter] = useState('')
+  const hook = () => {
+    axios.get('http://localhost:3001/persons').then(
+      people => { setPersons(people.data)}
+    )
+  }
+  useEffect(hook, [])
 const AddNew = (event) => {
   event.preventDefault(); persons.find
   if (persons.some(person => person.name === newName)) {
