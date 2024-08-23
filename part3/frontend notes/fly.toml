@@ -1,0 +1,25 @@
+# fly.toml app configuration file generated for part1-twilight-wave-616 on 2024-08-22T14:40:44-04:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'part1-twilight-wave-616'
+primary_region = 'yyz'
+
+[build]
+
+[env]
+  PORT = "80"
+
+[http_service]
+  internal_port = 80
+  force_https = true
+  auto_stop_machines = 'stop'
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ['app']
+
+[[vm]]
+  memory = '1gb'
+  cpu_kind = 'shared'
+  cpus = 1
