@@ -1,6 +1,20 @@
 const express = require('express')
 const app = express()
 const cors = require('cors')
+require('dotenv').config();
+const mongoose = require('mongoose')
+
+// DO NOT SAVE YOUR PASSWORD TO GITHUB!!
+const url = process.env.MONGODB_URI;
+mongoose.set('strictQuery',false)
+mongoose.connect(url)
+
+const noteSchema = new mongoose.Schema({
+  content: String,
+  important: Boolean,
+})
+const Note = mongoose.model('Note', noteSchema)
+console.log('hi');
 
 app.use(express.static('dist'))
 app.use(cors())
@@ -47,7 +61,9 @@ const generateId = () => {
   })
   
   app.get('/api/notes', (request, response) => {
-    response.json(notes)
+    Note.find({}).then(notes => {
+      response.json(notes)
+    })
   })
   app.delete('/api/notes/:id', (request, response) => {
     const id = request.params.id
