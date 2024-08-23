@@ -1,25 +1,15 @@
 const express = require('express')
 const app = express()
 const cors = require('cors')
+const Note = require('./models/note')
 require('dotenv').config();
 const mongoose = require('mongoose')
 
 // DO NOT SAVE YOUR PASSWORD TO GITHUB!!
-const url = process.env.MONGODB_URI;
-mongoose.set('strictQuery',false)
-mongoose.connect(url)
-
-const noteSchema = new mongoose.Schema({
-  content: String,
-  important: Boolean,
-})
-const Note = mongoose.model('Note', noteSchema)
 console.log('hi');
-
 app.use(express.static('dist'))
 app.use(cors())
 app.use(express.json())
-
 let notes = [  {    id: "1",    content: "HTML is easy",    important: true  },  {    id: "2",    content: "Browser can execute only JavaScript",    important: false  },  {    id: "3",    content: "GET and POST are the most important methods of HTTP protocol",    important: true  }]
 app.get('/', (request, response) => {
     response.send('<h1>Hello World!</h1>')
@@ -49,7 +39,7 @@ const generateId = () => {
     notes = notes.concat(note)
   
     response.json(note)
-  })
+  })  
   app.get('/api/notes/:id', (request, response) => {
     const id = request.params.id
     const note = notes.find(note => note.id === id)
@@ -63,6 +53,8 @@ const generateId = () => {
   app.get('/api/notes', (request, response) => {
     Note.find({}).then(notes => {
       response.json(notes)
+      console.log(notes)
+      
     })
   })
   app.delete('/api/notes/:id', (request, response) => {
