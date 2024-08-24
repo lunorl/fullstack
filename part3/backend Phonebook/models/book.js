@@ -1,13 +1,13 @@
 const mongoose = require('mongoose')
-require('dotenv')
-mongoose.set(StrictQuery, false)
+require('dotenv').config()
+mongoose.set('strictQuery', false)
+const url = process.env.MONGODB_URI
+mongoose.connect(url).then(result => {    console.log('connected to MongoDB')  })  .catch(error => {    console.log('error connecting to MongoDB:', error.message)  })
 
-mongoose.connect(process.env.MONGODB_URI).then(result => {    console.log('connected to MongoDB')  })  .catch(error => {    console.log('error connecting to MongoDB:', error.message)  })
-
-const personSchema = {
+const personSchema = new mongoose.Schema({
     name: String,
     number: String,
-}
+})
 
 personSchema.set('toJSON', {
     transform: (document, returnedObject) => {
