@@ -41,7 +41,7 @@ const App = () => {
       
       personService.update(person.id, {...person, number: newNumber}).then((updatedPerson) => {
         setPersons(persons.map(p => p.id !== person.id ? p :updatedPerson ))
-        notifyWith(`phon number of ${person.name} updated!`)
+        notifyWith(`phone number of ${person.name} updated!`)
       })
       .catch(() => {
         notifyWith(`${person.name} has already been removed`, 'error')
@@ -70,6 +70,9 @@ const App = () => {
       notifyWith(`${createdPerson.name} added!`)
 
       cleanForm()
+    }).catch(error => {
+      console.log(error.message)
+      notifyWith(`you didn't format correctly cuh`, 'error')
     })
   }
 
