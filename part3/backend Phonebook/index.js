@@ -2,6 +2,7 @@ var morgan = require('morgan')
 const express = require('express')
 const app = express()
 const cors = require('cors')
+const Person = require('./models/book')
 app.use(express.static('build'))
 app.use(cors())
 morgan('tiny')
@@ -32,9 +33,14 @@ let persons = [
 app.use(express.json())
 
 app.get('/api/persons', (request, response) => {
-    response.json(persons)
+    Person.find({}).then(people => {
+        response.json(people)
+    })
 })
 app.get('/api/persons/:id', (request, response) => {
+    Person.findById(request.params.id).then(person =>
+        response.json(person)
+    )
     const id = request.params.id
     const person = persons.filter(book => book.id === id)
     if (person.length === 0) {
