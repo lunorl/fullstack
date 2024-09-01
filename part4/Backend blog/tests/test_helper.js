@@ -20,8 +20,7 @@ const initialBlogs = [
 const newPost = {        
     title: 'greatblog',
     author: 'random guy',
-    url: 'http://erwetq.com',
-    likes: '23213'}
+    url: 'http://erwetq.com'}
 module.exports = {
     initialBlogs, newPost, currentBlogs
 }

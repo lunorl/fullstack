@@ -3,8 +3,10 @@ const appRouter = express.Router()
 const Blog = require('../models/blog');
 const { randomInt } = require('crypto');
 
-appRouter.get('/', (request, response) => {
-  const variable = Blog.find({})
+appRouter.get('/', async (request, response) => {
+  console.log('m')
+  const variable = await Blog.find({})
+  console.log('s', variable)
   response.json(variable)
 })
 
