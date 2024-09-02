@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=production node index.js",    
-    "dev": "NODE_ENV=development nodemon index.js",    
-    "test": "NODE_ENV=test node --test",
+    "start": "cross-env NODE_ENV=production node index.js",
+    "dev": "cross-env NODE_ENV=development nodemon index.js",
+    "test": "cross-env NODE_ENV=test node --test",
     "build:ui": "@powershell Remove-Item -Recurse -Force dist && cd C:\\Users\\Nicolas.THISISMYPCOFNIC\\part1 && npm run build && @powershell Copy-Item dist -Recurse C:\\Users\\Nicolas.THISISMYPCOFNIC\\appropriate",
     "deploy": "fly deploy",
     "deploy:full": "npm run build:ui && npm run deploy",
@@ -16,10 +16,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
-    "mongoose": "^8.5.3"
+    "express-async-errors": "^3.1.1",
+    "mongoose": "^8.5.3",
+    "supertest": "^7.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.1",
