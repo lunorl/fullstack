@@ -5,7 +5,6 @@ const cors = require('cors')
 const appRouter = require('./controllers/blog')
 const mongoose = require('mongoose')
 const middleware = require('./utils/middleware')
-require('dotenv')
 require('dotenv').config()
 mongoose.set('strictQuery', false)
 const mongoUrl = process.env.MONGODB_URI
@@ -15,5 +14,6 @@ app.use(cors())
 app.use(express.json())
 app.use(middleware.requestLogger)
 app.use('/api/blogs', appRouter)
+app.use(middleware.errorHandler)
 
 module.exports = app

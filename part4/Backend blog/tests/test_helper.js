@@ -1,7 +1,6 @@
 const Blog = require('../models/blog')
 const currentBlogs = async () => {
-    const blogs = await Blog.find({})
-    return blogs.map(blog => blog.toJSON)
+    return await Blog.find({})
 }
 const initialBlogs = [
     {
