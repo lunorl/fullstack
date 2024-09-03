@@ -20,5 +20,5 @@ noteSchema.set('toJSON', {
     delete returnedObject.__v
   }
 })
-
-module.exports = mongoose.model('Note', noteSchema)
+const Note = mongoose.model('Note', noteSchema)
+module.exports = Note
