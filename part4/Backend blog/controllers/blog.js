@@ -4,13 +4,13 @@ const Blog = require('../models/blog');
 const { randomInt } = require('crypto');
 
 appRouter.get('/', async (request, response) => {
-  const variable = await Blog.find({})
+  const variable = await Blog.find({}).populate('user', {username: 1, name: 1, id: 1})
   response.json(variable)
 })
 
 appRouter.post('/', async (request, response) => {
   const blog = new Blog(request.body)
-  await blog.save()
+  const result = await blog.save()
   response.status(201).json(result)
   blog.save()
 });

@@ -31,6 +31,7 @@ test('has id', async () => {
 test('post creates a new', async () => {
     await api.post('/api/blogs')
     .send(helper.newPost)
+    console.log('bye')
     const blogs = await helper.currentBlogs()
     assert.strictEqual(blogs.length, helper.initialBlogs.length+1)
 })
