@@ -1,6 +1,11 @@
 const User = require('../models/users')
 const bcrypt = require('bcryptjs')
 const usersRouter = require('express').Router()
+usersRouter.get('/', async (request, response) => {
+    const stuff = await User.find({}).populate('blogs', { url: 1, title: 1, author: 1, id: 1 })
+
+    response.json(stuff)
+})
 usersRouter.post('/', async (request, response) => {
     const { password, name, username} = request.body
     if ((!password) || (!username) || password.length < 3 || username.length < 3) {
@@ -13,10 +18,5 @@ usersRouter.post('/', async (request, response) => {
     const saveUser = await guy.save()
 
     response.status(201).json(saveUser)
-})
-usersRouter.get('/', async (request, response) => {
-    const stuff = await User.find({}).populate('blog', { url: 1, title: 1, author: 1, id: 1 })
-
-    response.json(stuff)
 })
 module.exports = usersRouter
