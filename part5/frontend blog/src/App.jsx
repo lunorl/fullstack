@@ -42,7 +42,7 @@ const App = () => {
   const handleCreation = async (event) => {
     event.preventDefault()
     if (user) {
-      console.log('m')
+      console.log('m', user)
       try {
       await blogService.post({title, author, url, user})
       blogService.getAll().then(blogs => setBlogs( blogs ))  
@@ -180,11 +180,14 @@ const App = () => {
           blogService.updateLikes(blogs[index])
 
           }}>like</button> <br />
+          {console.log('blog ', bloge)}
         {bloge.user.name}<br />
         <button onClick={() => {
           if (window.confirm(`Remove blog ${bloge.title} by ${bloge.author}`)) {
             blogService.remove(user, bloge)
-          }
+            const stuff = blogs.filter(blog => blog !== bloge)
+            setBlogs(stuff)
+          } 
         }}>remove</button> </p>
       </Togglable>
       </div>

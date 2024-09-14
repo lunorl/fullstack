@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken')
 const router = require('express').Router()
 const Blog = require('../models/blog')
 const User = require('../models/user')
+const usersRouter = require('./users')
 const userExtractor = require('../utils/middleware').userExtractor
 
 router.get('/', async (request, response) => {
@@ -32,11 +33,14 @@ router.post('/', async (request, response) => {
   } else {
     console.log('sm')
     user.blogs = user.blogs.concat(blog._id)
+    console.log(user)
   }
-  user = User(user)
-  blog.user = user._id
-  console.log('user', user._id)
-  await user.save()
+  console.log(user.id)
+  blog.user = user.id
+  console.log('user', user)
+  await User.findByIdAndUpdate(user.id, { blogs: user.blogs },
+    { new: true, runValidators: true })
+    console.log(User.findById(user.id))
   const savedBlog = await blog.save()
 
   response.status(201).json(savedBlog)
@@ -44,7 +48,9 @@ router.post('/', async (request, response) => {
 
 router.delete('/:id', userExtractor, async (request, response) => {
   const user = request.user
+  console.log(request.params.id)
   const blog = await Blog.findById(request.params.id)
+  console.log('blog', blog)
   if (!blog) {
     return response.status(204).end()
   }
