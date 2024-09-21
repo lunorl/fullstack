@@ -22,7 +22,7 @@ const Togglable = forwardRef((props, refs) => {
         return (
             <div>
             {props.extratext}
-            <button onClick={() => setVisible(true)}>{props.text}</button>
+            <button onClick={() => setVisible(true)} placeholder='see'>{props.text}</button>
             </div>
         )
     }

@@ -11,7 +11,9 @@ const post = async (info) => {
   return request.data
 }
 const updateLikes = async (blog) => {
+  console.log('blog', blog)
   const request = await axios.put(`${baseUrl}/${blog.id}`, blog)
+  console.log('request', request)
   return request.data
 }
 const remove = async (user, blog) => {

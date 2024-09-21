@@ -6,6 +6,7 @@ const usersRouter = require('./users')
 const userExtractor = require('../utils/middleware').userExtractor
 
 router.get('/', async (request, response) => {
+  console.log('laskjdsa')
   const blogs = await Blog
     .find({}).populate('user', { username: 1, name: 1 })
 
@@ -13,10 +14,11 @@ router.get('/', async (request, response) => {
 })
 
 router.post('/', async (request, response) => {
+  console.log('hahahshdahsdhwasdhasdhasdga')
   const blog = new Blog(request.body)
   let user = request.user
-  if (!user) {
-    console.log(request.body.user)   
+  console.log('req user', request.user)
+  if (!user) {  
     user = request.body.user
   }
   if (!user ) {
@@ -25,22 +27,18 @@ router.post('/', async (request, response) => {
   if (!blog.title || !blog.url ) {
     return response.status(400).json({ error: 'title or url missing' })
   }   
-
+  user._id = user.id
+  console.log('user is ', user.id, user._id)
   blog.likes = blog.likes | 0
   if (!user.blogs) {
-    console.log('m')
     user.blogs = [blog._id]
   } else {
-    console.log('sm')
     user.blogs = user.blogs.concat(blog._id)
-    console.log(user)
   }
-  console.log(user.id)
   blog.user = user.id
-  console.log('user', user)
+  console.log('blog user', blog.user)
   await User.findByIdAndUpdate(user.id, { blogs: user.blogs },
     { new: true, runValidators: true })
-    console.log(User.findById(user.id))
   const savedBlog = await blog.save()
 
   response.status(201).json(savedBlog)
@@ -48,14 +46,10 @@ router.post('/', async (request, response) => {
 
 router.delete('/:id', userExtractor, async (request, response) => {
   const user = request.user
-  console.log(request.params.id)
   const blog = await Blog.findById(request.params.id)
-  console.log('blog', blog)
   if (!blog) {
     return response.status(204).end()
   }
-  console.log(blog.user)
-  console.log(user.id)
   if ( user.id.toString() !== blog.user.toString() ) {
     return response.status(403).json({ error: 'user not authorized' })
   }

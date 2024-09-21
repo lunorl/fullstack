@@ -4,7 +4,6 @@ const User = require('../models/user')
 
 router.post('/', async (request, response) => {
   const { username, name, password } = request.body
-  console.log(password)
   if (!password || password.length < 3) {
     return response.status(400).json({ error: 'password missing or too short' })
   }
@@ -29,7 +28,6 @@ router.get('/', async (request, response) => {
   response.json(users)
 })
 router.put('/:id', async (request, response) => {
-  console.log('request', request)
   const body = request.body
 
   const blog = {
@@ -41,6 +39,5 @@ router.put('/:id', async (request, response) => {
 
   const updatedUser = await User.findByIdAndUpdate(request.params.id, blog)
   response.json(updatedUser)
-  console.log('done')
 })
 module.exports = router
