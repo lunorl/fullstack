@@ -1,0 +1,23 @@
+.green {
+    background-color: lightgray;
+    border-radius: 5px;
+    border-color: darkgreen;
+    color: green;
+    padding: 10px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    font-size: 20px;
+    border-style: solid;
+}
+.red {
+    background-color: lightgray;
+    border-radius: 5px;
+    border-color: red;
+    font-family: 'Courier New', Courier, monospace;
+    color: red;
+    padding: 10px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    font-size: 20px;
+    border-style: solid;
+}
