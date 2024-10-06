@@ -1,0 +1,15 @@
+/* src/styles.css */
+* {
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
+  }
+  
+  body {
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+    height: 100vh; /* Ensure body takes full height */
+    background-color: rgb(104, 104, 104); /* Set background color */
+  }
+  
+  html, body {
+    height: 100%; /* Ensure html and body take full height */
+  }

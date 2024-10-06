@@ -1,5 +1,9 @@
 import { useState } from 'react'
-
+import { Button, TextField } from '@mui/material'
+import styled from 'styled-components'
+const StyledLabel = styled.label`
+color: white;
+`
 const Login = ({ doLogin }) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -13,23 +17,25 @@ const Login = ({ doLogin }) => {
 
   return (
     <form onSubmit={handleLogin}>
-      <label>
+      <StyledLabel>
         Username:
-        <input
+        <TextField
+        size="small"
           type="text"
           data-testid='username'
           value={username}
           onChange={(e) => setUsername(e.target.value)} />
-      </label>
-      <label>
+      </StyledLabel>
+      <StyledLabel>
         Password:
-        <input
+        <TextField
+        size='small'
           type="password"
           value={password}
           data-testid='password'
           onChange={(e) => setPassword(e.target.value)} />
-      </label>
-      <input type="submit" value="Login" />
+      </StyledLabel>
+      <Button variant="contained" type="submit">Login</Button>
     </form>
   )
 }

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import { Button } from "@mui/material";
 const NewBlog = ({ doCreate }) => {
   const [title, setTitle] = useState("");
   const [url, setUrl] = useState("");
@@ -56,7 +56,9 @@ const NewBlog = ({ doCreate }) => {
             onChange={handleAuthorChange}
           />
         </div>
-        <button type="submit">Create</button>
+        <Button variant="contained" type="submit">
+          Create
+        </Button>
       </form>
     </div>
   );

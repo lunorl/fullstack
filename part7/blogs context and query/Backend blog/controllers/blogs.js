@@ -26,6 +26,7 @@ router.post("/", userExtractor, async (request, response) => {
 
   blog.likes = blog.likes | 0;
   blog.user = user;
+  console.log("b", blog);
   user.blogs = user.blogs.concat(blog._id);
 
   await user.save();
@@ -57,7 +58,20 @@ router.delete("/:id", userExtractor, async (request, response) => {
 
   response.status(204).end();
 });
+router.post("/:id/comments", userExtractor, async (request, response) => {
+  console.log('body', request.body);
+  const user = request.user;
 
+  const blog = await Blog.findById(request.params.id);
+  if (!blog) {
+    return response.status(204).end();
+  }
+
+  blog.comments = blog.comments.concat(request.body.comment);
+  await blog.save();
+
+  response.status(200).send(blog);
+});
 router.put("/:id", async (request, response) => {
   const body = request.body;
 
