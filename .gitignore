@@ -1,2 +1,5 @@
 part3\backend notes\.env
 part3\backend notes\node_modules
+*\node_modules
+*\*\node_modules
+*\*\.env

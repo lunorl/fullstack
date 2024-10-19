@@ -8,7 +8,29 @@ interface resultInfo {
   target: number;
   average: number;
 }
-const calculateExercises = (hours: number[], target: number): resultInfo => {
+type oneTwo = {
+  nume1: number;
+  numArray: number[];
+};
+const extractArgs2 = (): oneTwo => {
+  if (process.argv.length < 4) throw new Error("Not enough args");
+  const nume1 = Number(process.argv[2]);
+  let numArray: number[];
+  numArray = [];
+  let i = process.argv.length - 1;
+  while (i > 2) {
+    const n = process.argv[i];
+    if (isNaN(Number(n))) {
+      throw new Error("ok you literally just did not put a number");
+    }
+    numArray = numArray.concat(Number(n));
+    i--;
+  }
+  if (!isNaN(nume1)) {
+    return { nume1, numArray };
+  }
+};
+export const calculateExercises = (target: number, hours: number[]): resultInfo => {
   const periodLength = hours.length;
   const trainingDays = hours.filter((hour) => hour !== 0).length;
   let average = 0;
@@ -22,11 +44,11 @@ const calculateExercises = (hours: number[], target: number): resultInfo => {
   }
   let rating: ratingType;
   let ratingDescription: string;
-  if (average < target - 1 || average > target + 1) {
+  if (average < target - 0.4 || average > target + 0.4) {
     rating = 1;
     ratingDescription =
       "you are terrible you did not at all achieve what you needed to";
-  } else if (average < target - 0.5 || average > target + 0.5) {
+  } else if (average < target - 0.2 || average > target + 0.2) {
     rating = 2;
     ratingDescription = "not too bad but could be better";
   } else {
@@ -43,3 +65,7 @@ const calculateExercises = (hours: number[], target: number): resultInfo => {
     average,
   };
 };
+if (require.main === module) {
+const { nume1, numArray } = extractArgs2();
+console.log(calculateExercises(nume1, numArray));
+}
